@@ -268,7 +268,7 @@ function CheckButton() {
   const syncStore = useSyncStore();
 
   const couldCheck = useMemo(() => {
-    return syncStore.cloudSync();
+    return syncStore.coundSync();
   }, [syncStore]);
 
   const [checkState, setCheckState] = useState<
@@ -472,7 +472,7 @@ function SyncItems() {
   const promptStore = usePromptStore();
   const maskStore = useMaskStore();
   const couldSync = useMemo(() => {
-    return syncStore.cloudSync();
+    return syncStore.coundSync();
   }, [syncStore]);
 
   const [showSyncConfigModal, setShowSyncConfigModal] = useState(false);
@@ -1081,8 +1081,8 @@ export function Settings() {
                         ></input>
                       </ListItem>
                       <ListItem
-                        title={Locale.Settings.Access.Google.ApiKey.Title}
-                        subTitle={Locale.Settings.Access.Google.ApiKey.SubTitle}
+                        title={Locale.Settings.Access.Azure.ApiKey.Title}
+                        subTitle={Locale.Settings.Access.Azure.ApiKey.SubTitle}
                       >
                         <PasswordInput
                           value={accessStore.googleApiKey}
@@ -1099,9 +1099,9 @@ export function Settings() {
                         />
                       </ListItem>
                       <ListItem
-                        title={Locale.Settings.Access.Google.ApiVersion.Title}
+                        title={Locale.Settings.Access.Google.ApiVerion.Title}
                         subTitle={
-                          Locale.Settings.Access.Google.ApiVersion.SubTitle
+                          Locale.Settings.Access.Google.ApiVerion.SubTitle
                         }
                       >
                         <input

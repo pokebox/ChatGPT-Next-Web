@@ -5,7 +5,6 @@ on:
     types:
       - opened
       - synchronize
-      - reopened
 
 env:
   VERCEL_TEAM: ${{ secrets.VERCEL_TEAM }}
@@ -24,8 +23,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Extract branch name
         shell: bash

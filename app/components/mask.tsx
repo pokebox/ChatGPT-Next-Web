@@ -22,7 +22,7 @@ import {
   useAppConfig,
   useChatStore,
 } from "../store";
-import { MultimodalContent, ROLES } from "../client/api";
+import { ROLES } from "../client/api";
 import {
   Input,
   List,
@@ -38,12 +38,7 @@ import { useNavigate } from "react-router-dom";
 
 import chatStyle from "./chat.module.scss";
 import { useEffect, useState } from "react";
-import {
-  copyToClipboard,
-  downloadAs,
-  getMessageImages,
-  readFromFile,
-} from "../utils";
+import { copyToClipboard, downloadAs, readFromFile } from "../utils";
 import { Updater } from "../typing";
 import { ModelConfigList } from "./model-config";
 import { FileName, Path } from "../constant";
@@ -55,7 +50,6 @@ import {
   Draggable,
   OnDragEndResponder,
 } from "@hello-pangea/dnd";
-import { getMessageTextContent } from "../utils";
 
 // drag and drop helper function
 function reorder<T>(list: T[], startIndex: number, endIndex: number): T[] {
@@ -250,7 +244,7 @@ function ContextPromptItem(props: {
         </>
       )}
       <Input
-        value={getMessageTextContent(props.prompt)}
+        value={props.prompt.content}
         type="text"
         className={chatStyle["context-content"]}
         rows={focusingInput ? 5 : 1}
@@ -295,18 +289,7 @@ export function ContextPrompts(props: {
   };
 
   const updateContextPrompt = (i: number, prompt: ChatMessage) => {
-    props.updateContext((context) => {
-      const images = getMessageImages(context[i]);
-      context[i] = prompt;
-      if (images.length > 0) {
-        const text = getMessageTextContent(context[i]);
-        const newContext: MultimodalContent[] = [{ type: "text", text }];
-        for (const img of images) {
-          newContext.push({ type: "image_url", image_url: { url: img } });
-        }
-        context[i].content = newContext;
-      }
-    });
+    props.updateContext((context) => (context[i] = prompt));
   };
 
   const onDragEnd: OnDragEndResponder = (result) => {
